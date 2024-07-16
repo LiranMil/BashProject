@@ -1,6 +1,7 @@
+#!/bin/bash
 echo "Hello $USER"
 
-export COURSE_ID="REPO_NAME"
+export COURSE_ID="DevOpsTheHardWay"
 
 if [ -f ~/.token ];
 then
