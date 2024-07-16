@@ -1,8 +1,6 @@
 #!/bin/bash
 echo "Hello $USER"
 
-umask 077
-echo "$(umask)"
 export COURSE_ID="__REPO_NAME__"
 
 if [ -f ~/.token ];
@@ -13,6 +11,8 @@ then
 echo "Warning: .token file has too open permissions"
 fi
 fi
+
+umask 077
 
 export PATH=$PATH:/home/$USER/usercommands
 
