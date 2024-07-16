@@ -2,7 +2,7 @@
 
 echo "Hello $USER"
 
-export COURSE_ID="__REPO_NAME__"
+export COURSE_ID="DevOpsTheHardWay"
 
 if [ -f ~/.token ]; then
     perms=$(stat -c "%a" ~/.token)
@@ -11,7 +11,10 @@ if [ -f ~/.token ]; then
     fi
 fi
 
-umask 0077
+umask 0077 || {
+    echo "Bad user umask"
+    exit 1
+}
 
 export PATH="$PATH:$HOME/usercommands"
 
@@ -23,8 +26,3 @@ if [ -d ~/tmp ]; then
     rm -rf ~/tmp/*
 else
     mkdir ~/tmp
-fi
-
-if [ "$(sudo lsof -t -i:8080)" ]; then
-    sudo kill -9 $(sudo lsof -t -i:8080)
-fi
