@@ -1,6 +1,8 @@
 #!/bin/bash
 echo "Hello $USER"
 
+umask 0077
+
 export COURSE_ID="__REPO_NAME__"
 
 if [ -f ~/.token ];
