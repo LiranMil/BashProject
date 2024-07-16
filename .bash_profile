@@ -12,7 +12,7 @@ echo "Warning: .token file has too open permissions"
 fi
 fi
 
-umask 027
+umask 0027
 
 export PATH=$PATH:/home/$USER/usercommands
 
