@@ -14,11 +14,13 @@ fi
 
 umask 0027
 
+CURRENT_UMASK=$(umask)
+echo "Current umask is: $CURRENT_UMASK"
+
 export PATH=$PATH:/home/$USERNAME/usercommands
 
 echo "The current date&time is: $(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 
-# Define the ltxt alias
 alias ltxt='ls *.txt'
 
 if [ ! -d ~/tmp ]; then
