@@ -12,8 +12,7 @@ if [ -f ~/.token ]; then
     fi
 fi
 
-umask 0027
-
+umask 0022
 CURRENT_UMASK=$(umask)
 echo "Current umask is: $CURRENT_UMASK"
 
