@@ -2,23 +2,14 @@ echo "Hello $USER"
 
 export COURSE_ID="REPO_NAME"
 
-if [ -e ~/.token ]; then
-    permissions=$(stat -c "%a" ~/.token)
-    if [ "$permissions" -ne 600 ]; then
-        echo "Warning: .token file has too open permissions"
-    fi
-fi
+export PATH=$PATH:/home/$USER/usercommands
 
-umask 0077
+DATE_NOW=$(date -u +"%Y-%m-%dT%H:%M:%S%z")
+echo "The current date is: $DATE_NOW"
 
-export PATH="$PATH:/home/$USER/usercommands"
+alias ltxt='ls -l *.txt'
 
-echo "The corrent date is: $(date -u +"%Y-%m-%dT%H:%M:%S%:z")"
+mkdir -p ~/tmp
+rm -rf ~/tmp/*
 
-alias ltxt='ls *.txt'
-
-if [ -d ~/tmp ]; then
-    rm -rf ~/tmp/*
-else
-    mkdir ~/tmp
-fi
+kill -9 $(lsof -tiUDP:8080) 2>/dev/null
