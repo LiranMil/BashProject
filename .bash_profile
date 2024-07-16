@@ -1,27 +1,30 @@
 #!/bin/bash
+
 echo "Hello $USER"
 
 export COURSE_ID="__REPO_NAME__"
 
-if [ -f ~/.token ];
-then
-permissions=$(stat -c %a ~/.token)
-if [ $permissions != "600" ];
-then
-echo "Warning: .token file has too open permissions"
-fi
+if [ -f ~/.token ]; then
+    perms=$(stat -c "%a" ~/.token)
+    if [ "$perms" != "600" ]; then
+        echo "Warning: .token file has too open permissions"
+    fi
 fi
 
-umask 0027
+umask 0077
 
-export PATH=$PATH:/home/$USER/usercommands
+export PATH="$PATH:$HOME/usercommands"
 
-DATE_NOW=$(date -u +"%Y-%m-%dT%H:%M:%S%z")
-echo "The current date is: $DATE_NOW"
+echo "The current date&time is: $(date -u +'%Y-%m-%dT%H:%M:%S%z')"
 
-alias ltxt='ls -l *.txt'
+alias ltxt='ls *.txt'
 
-mkdir -p ~/tmp
-rm -rf ~/tmp/*
+if [ -d ~/tmp ]; then
+    rm -rf ~/tmp/*
+else
+    mkdir ~/tmp
+fi
 
-kill -9 $(lsof -tiUDP:8080) 2>/dev/null
+if [ "$(sudo lsof -t -i:8080)" ]; then
+    sudo kill -9 $(sudo lsof -t -i:8080)
+fi
