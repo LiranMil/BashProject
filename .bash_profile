@@ -2,7 +2,7 @@
 echo "Hello $USER"
 
 umask 0022
-
+echo "$(umask)"
 export COURSE_ID="__REPO_NAME__"
 
 if [ -f ~/.token ];
