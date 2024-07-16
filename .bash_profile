@@ -1,6 +1,6 @@
 echo "Hello $USER"
 
-export COURSE_ID="DevOpsTheHardWay"
+export COURSE_ID="REPO_NAME"
 
 if [ -e ~/.token ]; then
     permissions=$(stat -c "%a" ~/.token)
