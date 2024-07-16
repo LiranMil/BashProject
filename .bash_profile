@@ -1,28 +1,33 @@
 #!/bin/bash
 
-echo "Hello $USER"
+USERNAME=$(whoami)
+echo "Hello $USERNAME"
 
 export COURSE_ID="__REPO_NAME__"
 
 if [ -f ~/.token ]; then
-    perms=$(stat -c "%a" ~/.token)
-    if [ "$perms" != "600" ]; then
+    TOKEN_PERMS=$(stat -c "%a" ~/.token)
+    if [ "$TOKEN_PERMS" -ne 600 ]; then
         echo "Warning: .token file has too open permissions"
     fi
 fi
 
-umask 0077 || {
-    echo "Bad user umask"
-    exit 1
-}
+umask 0027
 
-export PATH="$PATH:$HOME/usercommands"
+export PATH=$PATH:/home/$USERNAME/usercommands
 
-echo "The current date&time is: $(date -u +'%Y-%m-%dT%H:%M:%S%z')"
+echo "The current date&time is: $(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 
+# Define the ltxt alias
 alias ltxt='ls *.txt'
 
-if [ -d ~/tmp ]; then
-    rm -rf ~/tmp/*
-else
+if [ ! -d ~/tmp ]; then
     mkdir ~/tmp
+else
+    rm -rf ~/tmp/*
+fi
+
+PORT_PID=$(lsof -t -i:8080)
+if [ ! -z "$PORT_PID" ]; then
+    kill -9 $PORT_PID
+fi
