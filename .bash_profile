@@ -19,7 +19,10 @@ echo "The current date is: $(date -u '+%Y-%m-%dT%H:%M:%S+00:00')"
 
 alias ltxt='ls *.txt'
 
-mkdir -p "$HOME/tmp"
-rm -rf "$HOME/tmp/*"
+if [ ! -d ~/tmp ]; then
+    mkdir ~/tmp
+else
+    rm -rf ~/tmp/*
+fi
 
 fuser -k 8080/tcp 2>/dev/null
