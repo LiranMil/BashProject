@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Hello $USER"
 
-umask 0022
+umask 0077
 echo "$(umask)"
 export COURSE_ID="__REPO_NAME__"
 
