@@ -2,9 +2,10 @@ echo "Hello $USER"
 
 export COURSE_ID="REPO_NAME"
 
-if [ -f ~/.token ]
+if [ -f ~/.token ];
 then
-if [ $(stat -c %a ~/.token) != "600" ]
+permissions=$(stat -c %a ~/.token)
+if [ $permissions != "600" ];
 then
 echo "Warning: .token file has too open permissions"
 fi
